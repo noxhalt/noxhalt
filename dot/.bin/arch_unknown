@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+file_all=$(mktemp)
+file_own=$(mktemp)
+find /etc /opt /usr 2>/dev/null|sort >$file_all
+pacman -Qlq|sed 's|/$||'|sort >$file_own
+comm -23 <(cat $file_all) <(cat $file_own)
+rm $file_all $file_own

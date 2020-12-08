@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+icon=''
+value=$(lscp ${1:-} | wc -l)
+output $icon $value

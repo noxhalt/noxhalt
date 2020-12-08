@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+# ./battery_level [battery num]
+
+# icons
+icon=''
+icons=''
+charge=''
+
+# read acpi
+src=$(acpi -b | grep -v 'unavailable' | sed -n "${1:-1}p")
+[[ -z $src ]] && exit 0 # Battery not found
+
+# is chargeing?
+echo $src | grep 'Charging' \
+  >/dev/null 2>/dev/null \
+  && chargeing=true \
+  || chargeing=false
+
+# how many battery level?
+value=$(echo $src | \
+  grep -o '[0-9:]\+' | sed -n "2p")
+
+# battery level icon
+if $chargeing;then
+  icon=$charge
+else
+  icon="${icons:$((${value}/(100/${#icons}))):1}"
+  icon="${icon:-${icons:$((${#icons}-1)):1}}"
+fi
+
+# battery level color
+if [[ $value -ge 40 ]];then
+  color=$color_good
+elif [[ $value -ge 20 ]];then
+  color=$color_degraded
+else
+  color=$color_bad
+fi
+
+# output format
+output $icon $value% $color 3

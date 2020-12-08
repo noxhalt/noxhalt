@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+# ./disk_usage [mount point]
+
+icon=''
+value=$(LANG=en_US.UTF-8 df -h ${1:-/} | \
+  sed '1d' | sed 's/ \+/\t/g' | \
+  cut -f 5 | \
+  grep -o '[0-9]\+')
+
+# cpu usage color
+if [[ $value -ge 80 ]];then
+  color=$color_bad
+elif [[ $value -ge 60 ]];then
+  color=$color_degraded
+else
+  color=$color_good
+fi
+
+output $icon $value% $color 3

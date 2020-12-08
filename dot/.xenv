@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# dbus config
+# eval $(dbus-launch --sh-syntax --exit-with-session)
+
+# xdg config
+export XDG_DOWNLOAD_DIR="/data/Downloads"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="/tmp/.${USER}-cache"
+export WINIT_X11_SCALE_FACTOR="1.0"
+
+# Language
+export LANG=ja_JP.UTF-8
+export XMODIFIERS="@im=ibus"
+export XMODIFIER="@im=ibus"
+export DefaultIMModule="ibus"
+export GTK_IM_MODULE="ibus"
+export QT_IM_MODULE="ibus"
+
+# software
+export EDITOR='leafpad'
+export BROWSER='google-chrome-stable'
+export TERMINAL=$(type alacritty >/dev/null 2>&1 && echo alacritty || echo urxvt)
+
+# develop
+export DEVELOP_HOME=/data/develop_
+export GOPATH=${DEVELOP_HOME}/golang:~/works/experiment/golang
+export RUSTUP_HOME=${DEVELOP_HOME}/rust
+
+# PATH
+export PATH=$PATH:~/.bin:~/bin:~/.pub-cache/bin

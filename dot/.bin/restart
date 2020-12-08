@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+#// Kill all process and restart
+#// Command:
+#//   ./restart [command] [args...]
+
+killall $1; $* &

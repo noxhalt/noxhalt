@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/base.zsh
+root_only 1
+
+#// Safe wrapper for reflector.
+#// Command: 
+#//   ./arch_mirror [country]
+
+COUNTRY=${1:-Japan}
+
+# generate mirrorlist
+tmpfile=$(mktemp)
+reflector --verbose --country ${COUNTRY} -f 10 --sort score -p https -p http --save ${tmpfile}
+
+# if success, overwrite mirrorlist
+success && {
+  chmod 644 ${tmpfile}
+  mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+  cp ${tmpfile} /etc/pacman.d/mirrorlist
+  cat /etc/pacman.d/mirrorlist
+  pacman -Syyuu
+}
+
+# clean
+rm ${tmpfile}

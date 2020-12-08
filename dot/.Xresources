@@ -1,0 +1,59 @@
+! X dpi size
+Xft.dpi: 96
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! URxvt
+URxvt.font:             xft:Hack:size=13,\
+                        xft:Migu 1M,\
+                        xft:Noto Color Emoji
+URxvt.cursorBlink:      true
+URxvt.cursorUnderLine:  true
+URxvt.fading:           0
+URxvt.internalBorder:   0
+URxvt.letterSpace:      -1
+URxvt.pointerBlank:     true
+URxvt.saveLines:        100000
+URxvt.scrollBar:        false
+URxvt.visualBell:       true
+
+! URxvt colors
+URxvt.depth:            32
+URxvt.color0:           [100]#120B0B
+URxvt.color1:           [100]#CB7777
+URxvt.color2:           [100]#77CB77
+URxvt.color3:           [100]#CBCB77
+URxvt.color4:           [100]#7777CB
+URxvt.color5:           [100]#CB77CB
+URxvt.color6:           [100]#77CBCB
+URxvt.color7:           [100]#FBFBFB
+URxvt.color8:           [100]#777777
+URxvt.color9:           [100]#FBABAB
+URxvt.color10:          [100]#ABFBAB
+URxvt.color11:          [100]#FBFBAB
+URxvt.color12:          [100]#ABABFB
+URxvt.color13:          [100]#FBABAB
+URxvt.color14:          [100]#ABFBFB
+URxvt.color15:          [100]#FFFFFF
+URxvt.colorBD:          [100]#FBFBFB
+URxvt.foreground:       [100]#FBFBFB
+URxvt.background:       [100]#120B0B
+URxvt.underlineColor:   [100]#FBFBFB
+
+! URxvt extension
+URxvt.perl-ext-common:        default, matcher, xim-onthespot
+URxvt.launcher:               /usr/bin/xdg-open
+URxvt.url-select.underline:   true
+
+! URxvt input method
+URxvt.inputMethod:            ibus
+URxvt.preeditType:            OnTheSpot
+
+! Keybind for copy/paste
+URxvt.iso14755:               false
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard

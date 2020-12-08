@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+# colors
+color_good='#7A7ADA'
+color_degraded='#DADA7A'
+color_bad='#DA7A7A'
+color_urgent='#DA7ADA'
+
+function output() {
+  icon=$1
+  text=$2
+  color=${3:-$color_good}
+  width=$4
+  if [[ -n $width ]]; then
+    text=$(printf "%${width}s" $text)
+  fi
+  if [[ -n $text ]]; then
+    text="${icon} ${text}"
+  else
+    text="$icon"
+  fi
+  echo "<span foreground=\"${color}\">${text}</span>"
+}

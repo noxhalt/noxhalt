@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/base.zsh
+root_only 1
+
+adb kill-server
+adb start-server
+adb devices

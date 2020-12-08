@@ -1,0 +1,99 @@
+env:
+  WINIT_X11_SCALE_FACTOR: '1.0'
+
+window:
+  padding:
+    x: 0
+    y: 0
+  dynamic_padding: false
+  decorations: none
+  startup_mode: Windowed
+  title: alacritty
+  class:
+    instance: alacritty
+    general: alacritty
+
+scrolling:
+  history: 100000
+  multiplier: 3
+
+font:
+  size: 13.0
+  normal:
+    family: Hack
+  bold:
+    family: Hack
+    style: Bold
+  italic:
+    family: Hack
+    style: Italic
+  bold_italic:
+    family: Hack
+    style: Bold Italic
+
+colors:
+  primary:
+    background: '#000000'
+    foreground: '#FFFFFF'
+  normal:
+    black:   '#7A7A7A'
+    red:     '#DA7A7A'
+    green:   '#7ADA7A'
+    yellow:  '#DADA7A'
+    blue:    '#7A7ADA'
+    magenta: '#DA7ADA'
+    cyan:    '#7ADADA'
+    white:   '#DADADA'
+  bright:
+    black:   '#8A8A8A'
+    red:     '#EA8A8A'
+    green:   '#8AEA8A'
+    yellow:  '#EAEA8A'
+    blue:    '#8A8AEA'
+    magenta: '#EA8A8A'
+    cyan:    '#8AEAEA'
+    white:   '#EAEAEA'
+
+draw_bold_text_with_bright_colors: true
+  
+background_opacity: 1.0
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: false
+
+cursor:
+  style: Block
+  unfocused_hollow: true
+
+shell:
+  program: /bin/zsh
+  # args:
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+  hide_when_typing: true
+  # url:
+    # launcher:
+    #   program: xdg-open
+    #   args: []
+    #modifiers: None
+
+mouse_bindings:
+  - { mouse: Middle, action: PasteSelection }
+
+key_bindings:
+  - { key: V,        mods: Control|Shift, action: Paste            }
+  - { key: C,        mods: Control|Shift, action: Copy             }
+  - { key: Key0,     mods: Control,       action: ResetFontSize    }
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
+    #  - { key: Add,      mods: Control,       action: IncreaseFontSize }
+    #  - { key: Subtract, mods: Control,       action: DecreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+
+# debug:
+#   render_timer: false
+#   persistent_logging: false
+#   log_level: Warn
+#   print_events: false

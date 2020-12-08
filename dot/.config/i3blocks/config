@@ -1,0 +1,57 @@
+interval=5
+align=center
+color=#7A7ADA
+markup=pango
+separator_block_width=12
+
+# [progress]
+# full_text=''
+# command=$XDG_CONFIG_HOME/i3blocks/script/progress
+# interval=1
+
+[cpu usage]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/cpu_usage
+interval=3
+
+[ram usage]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/ram_usage
+interval=3
+
+[disk usage]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/disk_usage /
+interval=30
+
+[entropy]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/entropy
+interval=3
+
+[load]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/load
+interval=10
+
+[cpu temp]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/cpu_temp
+interval=10
+
+[update]
+full_text=
+command=$XDG_CONFIG_HOME/i3blocks/script/update
+interval=once
+
+[battery 1]
+command=$XDG_CONFIG_HOME/i3blocks/script/battery 1
+interval=10
+
+[battery 2]
+command=$XDG_CONFIG_HOME/i3blocks/script/battery 2
+interval=10
+
+[date time]
+command=$XDG_CONFIG_HOME/i3blocks/script/datetime
+interval=1

@@ -1,0 +1,30 @@
+# mode
+rofi.modi:            window,drun,run
+rofi.show:            combi
+rofi.combi-modi:      window,drun
+
+# style
+rofi.font:            Hack 14
+rofi.separator-style  solid
+rofi.width:           50
+rofi.lines:           16
+rofi.padding:         40
+rofi.eh:              1
+rofi.bw:              2
+rofi.sidebar-mode:    true
+
+# colors
+rofi.color-enabled:   true
+rofi.color-window:    #000000, #7a7ada, #7a7ada
+rofi.color-normal:    #000000, #FFFFFF, #000000, #7a7ada, #FFFFFF
+rofi.color-active:    #000000, #da7ada, #000000, #da7ada, #FFFFFF
+rofi.color-urgent:    #000000, #da7a7a, #000000, #da7a7a, #FFFFFF
+
+# icons
+rofi.show-icons:      true
+rofi.drun-icon-theme: Papirus-Dark
+
+# keybinds
+rofi.kb-cancel:         Escape,Control+c
+rofi.kb-mode-next:      Shift+Right
+rofi.kb-mode-previous:  Shift+Left

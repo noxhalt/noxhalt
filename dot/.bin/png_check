@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+for item in $*; do
+  type=$(identify -verbose $item \
+    | grep -o 'color_type: [0-9]\+' \
+    | sed 's/.*\([0-9]\+\)$/\1/g')
+  echo -n "$item: "
+  case $type in
+    2) echo '24bit png';;
+    3) echo '8bit png';;
+    6) echo '32bit png';;
+  esac
+done

@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+# brightness
+# ./brightness
+
+# default color
+color=$color_good
+
+icon=''
+value=$(light -G|sed 's/\..*//')
+
+output $icon $value% $color 3

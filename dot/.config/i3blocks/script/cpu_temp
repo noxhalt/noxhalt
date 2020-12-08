@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+icon=''
+value=$(($(cat /sys/devices/platform/coretemp.*/hwmon/hwmon*/temp*_input|head -n1)/1000))
+
+# cpu usage color
+if [[ $value -ge 70 ]];then
+  color=$color_bad
+elif [[ $value -ge 50 ]];then
+  color=$color_degraded
+else
+  color=$color_good
+fi
+
+output $icon "$value'C" $color 2

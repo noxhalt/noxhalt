@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+icon=''
+value=$(paste \
+  /proc/sys/kernel/random/entropy_avail \
+  /proc/sys/kernel/random/poolsize \
+  | awk '{printf "%d\n", $1*100/$2}')
+output $icon $value%

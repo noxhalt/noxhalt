@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+recfile="$(date '+%Y_%m_%d-%H_%M_%S').mp4"
+trap 'sleep 1;adb pull sdcard/$recfile && adb shell rm sdcard/$recfile' 1 2 3 15
+adb shell screenrecord sdcard/$recfile

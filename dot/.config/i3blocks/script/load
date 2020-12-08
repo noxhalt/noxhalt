@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+icon=''
+value=$(uptime | \
+  grep -o "load average: .*" | \
+  grep -o "[0-9.]\+" | \
+  tr '\n' '\t' | cut -f1)
+
+if [[ $value -ge 8 ]];then
+  color=$color_bad
+elif [[ $value -ge 4 ]];then
+  color=$color_degraded
+else
+  color=$color_good
+fi
+
+output $icon $value $color 4

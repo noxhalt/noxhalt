@@ -1,0 +1,72 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+# volume pulseaudio
+# ./volume_pa
+
+# default color
+color=$color_good
+
+# icons
+icon=''
+icon_min=''
+icon_mid=''
+icon_max=''
+
+case $BLOCK_BUTTON in
+  2)
+    # mute
+    pactl set-sink-mute 0 toggle
+    ;;
+  4)
+    # volup
+    pactl set-sink-volume 0 +2%
+    ;;
+  5)
+    # voldown
+    pactl set-sink-volume 0 -2%
+    ;;
+esac
+
+# using flag
+mute=false
+src=$(pactl list sinks)
+
+num=$(\
+  echo $src|\
+  grep -o 'State: .*'|\
+  grep -n 'RUNNING'|\
+  grep -o '^[0-9]\+'\
+  )
+value=$(\
+  echo $src|\
+  grep -o $'\tVolume: .*'|\
+  sed -n "${num}P"|\
+  grep -o '[0-9]\+%'|\
+  grep -o '[0-9]\+'|\
+  awk '{i+=$1} END{print i/NR}'\
+  )
+
+echo $src|\
+  grep 'Mute: yes'\
+  >/dev/null\
+  2>&1\
+  && mute=true
+
+# volume level icon and color
+if [[ $value -ge 30 ]];then
+  color=$color_bad
+  icon=$icon_max
+elif [[ $value -ge 20 ]];then
+  color=$color_degraded
+  icon=$icon_mid
+else
+  color=$color_good
+  icon=$icon_min
+fi
+
+if $mute;then
+  color=$color_urgent
+fi
+
+output $icon $value% $color 3

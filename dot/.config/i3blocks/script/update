@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+# icons
+icon_none=''
+icon_error=''
+icon_update=''
+
+# pacman
+src=$(checkupdates 2>&1)
+code=$?
+value=$(echo $src|wc -l)
+
+# color status
+if [[ $code != 0 ]]; then
+  if [[ -n $src ]]; then
+    icon=$icon_error
+    color=$color_bad
+    value="-"
+    notify_title="Lost connection!"
+    notify_message="Check your cables..."
+  else
+    icon=$icon_none
+    color=$color_good
+    value="-"
+    notify_title="Up to date!"
+    notify_message="Nothing to do..."
+  fi
+else
+  icon=$icon_update
+  color=$color_degraded
+  notify_title="You have update!"
+  notify_message="$(echo $src|sed 's/ .*-> / /g')"
+fi
+
+[[ $BLOCK_BUTTON == 1 ]] && notify-send $notify_title $notify_message
+output $icon $value $color

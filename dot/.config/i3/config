@@ -1,0 +1,177 @@
+# MISC
+font pango:Hack, pango:FontAwesome 11
+
+# Env
+exec_always xset b off
+exec_always hsetroot -screens 1 -fill ~/.config/i3/bg.png
+# Daemon
+exec_always killall volumeicon; volumeicon
+exec_always nm-applet
+# exec_always blueberry-tray
+exec_always dunst
+exec_always ibus-daemon -drx
+# Apps
+exec pcmanfm -d
+# exec solaar
+exec slack
+
+# Setup
+set $mod Mod4
+set $red   #DA7A7A
+set $blue  #7A7ADA
+set $gray  #6A6A6A
+set $amber #DADA7A
+set $black #000000
+set $white #FFFFFF
+
+# workspace
+set $WS1 "1: 1"
+set $WS2 "2: 2"
+set $WS3 "3: 3"
+set $WS4 "4: 4"
+set $WS5 "5: 5"
+set $WS6 "6: 6"
+set $WS7 "7: 7"
+set $WS8 "8: 8"
+set $WS9 "9: 9"
+set $WS10 "10:"
+
+# Color                 #brd    #bg     #fg     #ind    #cbrd
+client.focused          $blue   $blue   $white  $red    $blue
+client.focused_inactive $black  $black  $white  $black  $black
+client.unfocused        $black  $black  $white  $black  $black
+client.urgent           $amber  $amber  $white  $red    $amber
+client.placeholder      $black  $black  $white  $black  $black
+client.background       $black
+
+# Border
+hide_edge_borders                       smart
+for_window [class="^.*"]                border pixel 2
+
+# Rule
+for_window [window_role="pop-up"]       floating enable
+for_window [window_role="task_dialog"]  floating enable
+for_window [class="java-lang-Thread"]  floating enable
+for_window [class="jetbrains-toolbox"]  floating enable
+
+# Assign
+assign [class="^Slack$"] $WS10
+assign [class="^discord$"] $WS10
+
+# Floating
+floating_modifier     $mod
+floating_minimum_size 160x120
+
+# execute
+bindsym $mod+c        exec rofi -show combi
+bindsym $mod+shift+c  exec LANG=en_US.UTF-8 rofi -show combi
+bindsym $mod+x        exec LANG=en_US.UTF-8 rofi -show run
+bindsym $mod+shift+q  exec rofi -show power:$XDG_CONFIG_HOME/rofi/power_menu
+bindsym $mod+b        exec i3lock -c "#000000"
+bindsym shift+Print         exec scrot '/tmp/%Y%m%d_%H%M%S.png'
+
+# terminal
+bindsym $mod+t        exec i3-sensible-terminal
+bindsym $mod+Return   exec i3-sensible-terminal
+
+# reload config
+bindsym $mod+r        reload
+bindsym $mod+shift+r  restart
+
+# window keybind
+bindsym $mod+h        split h
+bindsym $mod+v        split v
+bindsym $mod+e        layout toggle split
+bindsym $mod+q        kill
+bindsym $mod+f        fullscreen toggle
+bindsym $mod+g        floating toggle
+bindsym $mod+shift+g  focus mode_toggle
+
+# resize key
+bindsym $mod+u        exec i3-msg -t run_command resize grow height 100 px or 5 ppt \
+                        && i3-msg -t run_command resize grow width 100 px or 5 ppt
+bindsym $mod+y        exec i3-msg -t run_command resize shrink height 100 px or 5 ppt \
+                        && i3-msg -t run_command resize shrink width 100 px or 5 ppt
+
+# aswd move
+bindsym $mod+a            focus left
+bindsym $mod+s            focus down
+bindsym $mod+w            focus up
+bindsym $mod+d            focus right
+bindsym $mod+Ctrl+a       resize shrink width  10 px or 5 ppt
+bindsym $mod+Ctrl+s       resize grow   height 10 px or 5 ppt
+bindsym $mod+Ctrl+w       resize shrink height 10 px or 5 ppt
+bindsym $mod+Ctrl+d       resize grow   width  10 px or 5 ppt
+bindsym $mod+Shift+a      move  left
+bindsym $mod+Shift+s      move  down
+bindsym $mod+Shift+w      move  up
+bindsym $mod+Shift+d      move  right
+
+# arrow move
+bindsym $mod+Left         focus left
+bindsym $mod+Down         focus down
+bindsym $mod+Up           focus up
+bindsym $mod+Right        focus right
+bindsym $mod+Ctrl+Left    resize shrink width  10 px or 5 ppt
+bindsym $mod+Ctrl+Down    resize grow   height 10 px or 5 ppt
+bindsym $mod+Ctrl+Up      resize shrink height 10 px or 5 ppt
+bindsym $mod+Ctrl+Right   resize grow   width  10 px or 5 ppt
+bindsym $mod+Shift+Left   move  left
+bindsym $mod+Shift+Down   move  down
+bindsym $mod+Shift+Up     move  up
+bindsym $mod+Shift+Right  move  right
+
+# workspace tab
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# workspace switch
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+0 workspace $WS10
+
+# workspace move
+bindsym $mod+Shift+1 move container to workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8
+bindsym $mod+Shift+9 move container to workspace $WS9
+bindsym $mod+Shift+0 move container to workspace $WS10
+
+# top bar
+bar {
+  mode                    dock
+  position                top
+  modifier                $mod
+  hidden_state            show
+  tray_output             primary
+  tray_padding            2
+  separator_symbol        " "
+  i3bar_command           i3bar
+  status_command          i3blocks -c $XDG_CONFIG_HOME/i3blocks/config
+  workspace_buttons       yes
+  binding_mode_indicator  yes
+  strip_workspace_numbers yes
+  colors {
+    background            $black
+    statusline            $white
+    separator             $white
+#   color                 #border #black #texter
+    focused_workspace     $blue   $blue  $white
+    active_workspace      $blue   $black $white
+    urgent_workspace      $red    $red   $white
+    inactive_workspace    $black  $black $gray
+    binding_mode          $amber  $amber $white
+  }
+}

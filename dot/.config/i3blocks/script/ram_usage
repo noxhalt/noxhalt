@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+icon=''
+value=$(free --si -m | sed -n 2p | \
+  awk '{printf "%d\n",$3*100/$2}')
+
+# cpu usage color
+if [[ $value -ge 80 ]];then
+  color=$color_bad
+elif [[ $value -ge 60 ]];then
+  color=$color_degraded
+else
+  color=$color_good
+fi
+
+output $icon $value% $color 3

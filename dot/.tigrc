@@ -1,0 +1,11 @@
+# enable Commit-ID, Date ...
+set main-view = id date author commit-title:graph=yes,refs=yes
+
+# Force v-split
+set vertical-split = no
+
+# Height
+set split-view-height = 80%
+
+# disable history
+set history-size = -1

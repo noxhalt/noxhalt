@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/base.zsh
+
+#// Safe wrapper for pacman/paccache/yay
+#// Command: 
+#//   ./arch_clean [country]
+
+if has yay; then
+  yay
+else
+  pacman -Syu
+fi
+
+if has paccache; then
+  paccache -ruk0
+  paccache -rk2
+fi

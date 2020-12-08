@@ -1,0 +1,82 @@
+#!/usr/bin/env zsh
+
+# base directory
+cd ${0:A:h:h}
+REPO=${0:A:h:h:h}
+BACKUP=${REPO}/backup
+
+# load color
+autoload -Uz colors
+colors
+
+function dot_log() {
+  local color
+  local level=${1}
+  shift >/dev/null 2>&1
+  case ${level} in
+    LINK) color=${fg_bold[blue]};;
+    SKIP) color=${fg_bold[green]};;
+    EXIS) color=${fg_bold[yellow]};;
+    FAIL) color=${fg_bold[red]};;
+    *)    color=${reset_color};;
+  esac
+  echo "${color}${level}:${reset_color}" ${*}
+}
+
+function dot_index() {
+  local index=1
+  local search=${1}
+  shift >/dev/null 2>&1
+  local item
+  for item in ${*}; do
+    [[ ${search} == ${item} ]] && return ${index}
+    index=$((index + 1))
+  done
+  return 0
+}
+
+function dot_backup() {
+  [[ -d ${BACKUP} && -d ${BACKUP}/$(date "+%Y-%m-%d") ]] \
+    || mkdir -p ${BACKUP}/$(date "+%Y-%m-%d")
+  mv ${1} ${BACKUP}/$(date "+%Y-%m-%d")/${1:t}
+}
+
+function dot_deploy() {
+  local src=${1:A}
+  local dst=${2:A}
+  shift 2 >/dev/null 2>&1
+  local item
+  for item in $(ls -1A ${src}); do
+    local dep_src=${src%/}/${item}
+    local dep_dst=${dst%/}/${item}
+    dot_index ${item} ${*} && {
+      ${FORCE:-false} || [[ ! -e $dep_dst ]] && {
+        [[ -e ${dep_dst} ]] \
+          && dot_backup ${dep_dst}
+        ln -nsf ${dep_src} $dep_dst
+        [[ ${?} -eq 0 ]] \
+          && dot_log 'LINK' $dep_dst \
+          || dot_log 'FAIL' $dep_dst
+      } || {
+        dot_log 'EXIS' $dep_dst
+      }
+    } || dot_log 'SKIP' $dep_dst
+  done
+}
+
+function install() {
+  dot_deploy . ~ .config .mozc 
+  dot_deploy .config ~/.config
+  dot_deploy .mozc ~/.mozc
+
+  rm -r ~/.cache; ln -sf /tmp ~/.cache
+  rm -r ~/.thumbnails; ln -sf /tmp ~/.thumbnails
+  
+  git submodule update --init --recursive
+  nvim +:PlugInstall +:qall
+}
+
+# select action
+case $1 in
+  in) install ;;
+esac

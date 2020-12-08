@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+interval=${1:-3}
+icon=''
+value=$(vmstat 1 2 | tail -n 1 | \
+  awk '{print 100-$15;fflush()}')
+
+# Color status
+if [[ $value -ge 80 ]];then
+  color=$color_bad
+elif [[ $value -ge 40 ]];then
+  color=$color_degraded
+else
+  color=$color_good
+fi
+
+output $icon $value% $color 3

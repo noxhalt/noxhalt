@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+. ${0:A:h}/module
+
+icon=''
+value=$(progress \
+  | sed '/^$/d' \
+  | sed 'N;s/\n//' \
+  | awk '{printf "%s(%s) ", $2, $4}')
+output $icon ${value% }

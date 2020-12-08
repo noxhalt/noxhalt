@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# vim: set filetype=shell
+
+if [[ $# -eq 0 ]]; then
+	echo $(cat /sys/class/backlight/*/brightness) '/' $(cat /sys/class/backlight/*/max_brightness)
+else
+	if [[ $EUID -ne 0 ]];then
+		echo "you must run root..."
+		exit 1
+	fi
+
+	if [[ $1 -le 0 ]];then
+		echo "you can't set to 0 brightness..."
+		exit 2
+	fi
+	
+	echo -n "set to "
+	echo $1 | tee /sys/class/backlight/*/brightness
+	exit 0
+fi
